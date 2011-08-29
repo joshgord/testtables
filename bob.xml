@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<i:table xmlns:i="http://query.yahooapis.com/v1/schema/internalTable.xsd" xmlns="http://query.yahooapis.com/v1/schema/table.xsd" >
+  <meta>
+    <author>Yahoo! Inc.</author>
+    <description>Gets details for all the tables available in the current YQL call</description>
+    <sampleQuery>select * from {table} where name like "%yahoo%"</sampleQuery>
+  </meta>
+  <i:bindings>
+    <i:select itemPath="results.table" produces="XML">
+      <execute><![CDATA[
+                        var res, session, time = new Date();
+                        try {
+                                res = y.query('SELECT * FROM yahoo.dht WHERE table="yql.global" AND name="DHIHUIV4TxqoUZELIoEstg=="');
+                                if(res.results.error.length() > 0) {
+                                        y.log("failed to read data, error : " + res.results.error.toString());
+                                }
+                                var session = res.results.ydht.fields.item.value.toString();
+                                y.log("readSession ysid:  res:" + res + ' sessionObject: ' + session);
+                                y.log("readSession ysid:  res.results:" + res.results );
+                                y.log("readSession ysid:  res.results.ydht:" + res.results.ydht );
+                                y.log("readSession ysid:  res.results.ydht.fields:" + res.results.ydht.fields );
+                                y.log("readSession ysid:  res.results.ydht.fields.item:" + res.results.ydht.fields.item );
+                                y.log("readSession ysid:  res.results.ydht.fields.item.value:" + res.results.ydht.fields.item.value );
+                        }
+                        catch (exception) {
+                                y.log("readSession exception: " + exception);
+                        }
+        ]]></execute>
+    </i:select>
+  </i:bindings>
+</i:table>
+~
